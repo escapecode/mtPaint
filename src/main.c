@@ -378,8 +378,10 @@ int main( int argc, char *argv[] )
  * in the wild, and playing it safe doesn't cost all that much - WJ */
 		for (i = file_arg_start , j = 0; i < argc; i++)
 		{
-			if (strcmp(argv[i], "-w")) continue; j++;
-			if (++i >= argc) break; j++;
+			if (strcmp(argv[i], "-w")) continue;
+			j++;
+			if (++i >= argc) break;
+			j++;
 			// Ignore errors - be glad for whatever gets returned
 			glob(argv[i], (j > 2 ? GLOB_APPEND : 0), NULL, &globdata);
 		}

@@ -451,7 +451,7 @@ static void clipboard_export_fn(main_dd *dt, void **wdata, int what, void **wher
 	res = save_mem_image(&buf, &len, &settings);
 	if (res) return; // No luck creating in-memory image
 
-	pp[1] = (pp[0] = buf) + len; 
+	pp[1] = (pp[0] = buf) + len;
 	cmd_setv(where, pp, COPY_DATA);
 	free(buf);
 }
@@ -1626,7 +1626,7 @@ static void canvas_enter_leave(main_dd *dt, void **wdata, int what, void **where
 	clone_status &= ~CLONE_TRACK; // No tracking w/o perimeter
 
 	if (tool_type == TOOL_GRADIENT)
-	{ 
+	{
 		/* Let leave hide the dragged line */
 		grad_info *grad = gradient + mem_channel;
 		if ((grad->status == GRAD_START) || (grad->status == GRAD_END))
@@ -1653,7 +1653,7 @@ static int render_background(unsigned char *rgb, int x0, int y0, int wid, int hg
 	}
 	dx = x0 % step;
 	dy = y0 % step;
-	
+
 	py = (x0 / step + y0 / step) & 1;
 	if (hgt + dy > step)
 	{
@@ -2743,10 +2743,13 @@ static void draw_tgrid(unsigned char *rgb, int x, int y, int w, int h, int l)
 
 	dx = tgrid_x0 ? tgrid_dx - tgrid_x0 : 0;
 	nx = (x * zoom - dx) / (tgrid_dx * scale);
-	if (nx < 0) nx = 0; nx++; dx++;
+	if (nx < 0) nx = 0;
+	nx++;
+	dx++;
 	dy = tgrid_y0 ? tgrid_dy - tgrid_y0 : 0;
 	ny = (y * zoom - dy) / (tgrid_dy * scale);
-	if (ny < 0) ny = 0; ny++; dy++;
+	if (ny < 0) ny = 0;
+	ny++; dy++;
 	xx = ((nx * tgrid_dx - dx) * scale) / zoom + scale - 1;
 	yy = ((ny * tgrid_dy - dy) * scale) / zoom + scale - 1;
 	if ((xx >= x + w) && (yy >= y + h)) return; // Entirely inside grid cell
@@ -2916,7 +2919,8 @@ void draw_poly(int *xy, int cnt, int shift, int x00, int y00, rgbcontext *ctx)
 		x0 = x1; y0 = y1; a0 = a;
 		x1 = x00 + *xy++; y1 = y00 + *xy++;
 		dx = abs(x1 - x0); dy = abs(y1 - y0);
-		if (dx < dy) dx = dy; shift += dx;
+		if (dx < dy) dx = dy;
+		shift += dx;
 		switch (a0) // Basic clipping
 		{
 		// Already visible - skip if same point
@@ -3749,7 +3753,7 @@ static void update_script_menu()	// Populate menu
 	/* Hide submenu if no valid slots */
 	cmd_showhide(menu_slots[MENU_SCRIPT_M], items);
 	cmd_showhide(menu_slots[MENU_SCRIPT], !items);
-}	
+}
 
 typedef struct {
 	char *rows[SCRIPTS_MAX][4];
@@ -3846,7 +3850,7 @@ static void script_select_row(script_dd *dt, void **wdata, int what, void **wher
 
 	if (dt->nidx == dt->idx) return; // no change
 	dt->lock = TRUE;
-	
+
 	/* Update outgoing row */
 	update_text(dt);
 
