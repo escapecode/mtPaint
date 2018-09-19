@@ -270,7 +270,7 @@ static int set_blend(blend_dd *dt, void **wdata)
 	/* Don't accept stop-all or do-nothing */
 	if ((j == 7) || !(i | j | dt->xform | dt->src)) return (FALSE);
 
-	blend_mode = i | (dt->reverse ? BLEND_REVERSE : 0) | 
+	blend_mode = i | (dt->reverse ? BLEND_REVERSE : 0) |
 		(dt->xform ? BLEND_XFORM : 0) | (j << BLEND_RGBSHIFT);
 	blend_src = dt->src;
 
@@ -632,6 +632,11 @@ void *toolbar_code[] = {
 	TBBUTTON(_("Rotate Selection Anti-Clockwise"), XPM_ICON(rotate_as),
 		ACTMOD(ACT_SEL_ROT, 1)),
 		ACTMAP(NEED_CLIP),
+	TBSPACE,
+	TBRBUTTONxv(_("Image"), XPM_ICON(chan_image), ACTMOD(ACT_CHANNEL, CHN_IMAGE), ACTMOD(ACT_TOGGLE_CHN_DISPLAY, 1), tool_id),
+	TBRBUTTONxv(_("Alpha"), XPM_ICON(chan_alpha), ACTMOD(ACT_CHANNEL, CHN_ALPHA),  ACTMOD(ACT_TOGGLE_CHN_OVERLAY, CHN_ALPHA), tool_id),
+	TBRBUTTONxv(_("Selection"), XPM_ICON(chan_sel), ACTMOD(ACT_CHANNEL, CHN_SEL), ACTMOD(ACT_TOGGLE_CHN_OVERLAY, CHN_SEL), tool_id),
+	TBRBUTTONxv(_("Mask"), XPM_ICON(chan_mask), ACTMOD(ACT_CHANNEL, CHN_MASK), ACTMOD(ACT_TOGGLE_CHN_OVERLAY, CHN_MASK), tool_id),
 	ENDSCRIPT,
 	SMARTTBMORE(_("More...")), WDONE,
 	WDONE, // twobox

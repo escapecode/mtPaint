@@ -91,6 +91,8 @@ enum { // To let constants renumber themselves when adding new ones
 	ACT_LR_CENTER,
 	ACT_SCRIPT,
 	ACT_RUN_SCRIPT,
+	ACT_TOGGLE_CHN_OVERLAY,
+	ACT_TOGGLE_CHN_DISPLAY,
 
 	DLG_BRCOSA,
 	DLG_CHOOSER,

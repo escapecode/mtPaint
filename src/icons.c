@@ -102,6 +102,10 @@
 #include "graphics/xpm_up.xpm"
 #include "graphics/xpm_cline.xpm"
 #include "graphics/xpm_layers.xpm"
+#include "graphics/xpm_chan_image.xpm"
+#include "graphics/xpm_chan_alpha.xpm"
+#include "graphics/xpm_chan_mask.xpm"
+#include "graphics/xpm_chan_sel.xpm"
 //#include "graphics/xpm_config.xpm"
 
 #undef static

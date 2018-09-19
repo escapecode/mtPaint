@@ -451,7 +451,7 @@ static void clipboard_export_fn(main_dd *dt, void **wdata, int what, void **wher
 	res = save_mem_image(&buf, &len, &settings);
 	if (res) return; // No luck creating in-memory image
 
-	pp[1] = (pp[0] = buf) + len; 
+	pp[1] = (pp[0] = buf) + len;
 	cmd_setv(where, pp, COPY_DATA);
 	free(buf);
 }
@@ -1626,7 +1626,7 @@ static void canvas_enter_leave(main_dd *dt, void **wdata, int what, void **where
 	clone_status &= ~CLONE_TRACK; // No tracking w/o perimeter
 
 	if (tool_type == TOOL_GRADIENT)
-	{ 
+	{
 		/* Let leave hide the dragged line */
 		grad_info *grad = gradient + mem_channel;
 		if ((grad->status == GRAD_START) || (grad->status == GRAD_END))
@@ -1653,7 +1653,7 @@ static int render_background(unsigned char *rgb, int x0, int y0, int wid, int hg
 	}
 	dx = x0 % step;
 	dy = y0 % step;
-	
+
 	py = (x0 / step + y0 / step) & 1;
 	if (hgt + dy > step)
 	{
@@ -3749,7 +3749,7 @@ static void update_script_menu()	// Populate menu
 	/* Hide submenu if no valid slots */
 	cmd_showhide(menu_slots[MENU_SCRIPT_M], items);
 	cmd_showhide(menu_slots[MENU_SCRIPT], !items);
-}	
+}
 
 typedef struct {
 	char *rows[SCRIPTS_MAX][4];
@@ -3846,7 +3846,7 @@ static void script_select_row(script_dd *dt, void **wdata, int what, void **wher
 
 	if (dt->nidx == dt->idx) return; // no change
 	dt->lock = TRUE;
-	
+
 	/* Update outgoing row */
 	update_text(dt);
 
@@ -4646,6 +4646,10 @@ void action_dispatch(int action, int mode, int state, int kbd)
 		cmd_reset(main_keys, NULL); break;
 	case ACT_MODE:
 		mode_change(mode, state); break;
+	case ACT_TOGGLE_CHN_OVERLAY:
+		channel_disable_toggle(mode); break;
+	case ACT_TOGGLE_CHN_DISPLAY:
+		channel_hide_toggle(mode); break;
 	case ACT_LR_SHIFT:
 		shift_layer(mode); break;
 	case ACT_LR_CENTER:

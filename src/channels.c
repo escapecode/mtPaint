@@ -352,6 +352,28 @@ void pressed_channel_disable(int state, int channel)
 	update_stuff(UPD_RENDER);
 }
 
+void channel_disable_toggle (int channel)
+{
+	/* Note: shouldn't have buffer overflow problems, since strings are static internal */
+
+	// Hack 1: script only turns channel off, but does set menu checkbox
+	char ch[1000];
+	strcpy(ch, "-channel/'Disable ");
+
+	if (channel == CHN_ALPHA) strcat(ch, "Alpha'");
+	else if (channel == CHN_SEL) strcat(ch, "Selection'");
+	else if (channel == CHN_MASK) strcat(ch, "Mask'");
+	else return;
+
+	char **res = wj_parse_argv(ch);
+	run_script(res);
+
+	// Hack 2:  This code turns channel of AND on, but doesn't set menu checkbox
+	// toggle = (channel_dis[channel] == 1);
+	channel_dis[channel] = (channel_dis[channel] == 1) ? 0 : 1;
+	update_stuff(UPD_RENDER);
+}
+
 static int do_threshold(spin1_dd *dt, void **wdata)
 {
 	run_query(wdata);
@@ -382,6 +404,15 @@ void pressed_channel_toggle(int state, int what)
 {
 	int *toggle = what ? &hide_image : &overlay_alpha;
 	*toggle = state;
+	update_stuff(UPD_RENDER);
+}
+
+void channel_hide_toggle (int channel)
+{
+	int *toggle = channel ? &hide_image : &overlay_alpha;
+
+	*toggle = (*toggle == 1) ? 0 : 1;
+
 	update_stuff(UPD_RENDER);
 }
 
